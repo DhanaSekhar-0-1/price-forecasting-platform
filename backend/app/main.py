@@ -6,7 +6,7 @@ from backend.app.services import ForecastService
 
 app = FastAPI(title="Way2Agribusiness Price Forecast API", version="1.0.0", description="12-month monthly-price forecasting API")
 # Permit the local Vite development server; restrict origins to your domain in production.
-app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
+app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173", "http://127.0.0.1:5173", "https://price-forecasting-platform-l50nsnn8b-dhana-0-1-projects.vercel.app", ], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 service = ForecastService()
 
 @app.get("/health")

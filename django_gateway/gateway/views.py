@@ -9,7 +9,7 @@ BASE = os.getenv("FASTAPI_BASE_URL", "http://127.0.0.1:8000")
 def health(request):
     # Expose gateway status without claiming the upstream is healthy.
     try:
-        upstream = requests.get(f"{BASE}/health", timeout=3)
+        upstream = requests.get(f"{BASE}/health", timeout=30)
         return JsonResponse({"gateway": "ok", "fastapi_status": upstream.status_code}, status=200 if upstream.ok else 502)
     except requests.RequestException as exc:
         return JsonResponse({"gateway": "ok", "fastapi_error": str(exc)}, status=502)

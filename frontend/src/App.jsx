@@ -127,7 +127,7 @@ export default function App() {
         ]);
 
       const items = Array.isArray(historyResponse)
-        ? historyResponse
+        ? historyResponse	
         : historyResponse?.items;
 
       if (!Array.isArray(items)) {
@@ -139,13 +139,19 @@ export default function App() {
       setHistory(items);
       setForecast(forecastResponse);
       setMetrics(metricsResponse);
-    } catch (err) {
-      setError(
-        `${err.message}. Check that FastAPI is running and the API URL is correct.`
-      );
-    } finally {
-      setLoading(false);
-    }
+    
+		} catch (err) {
+		  console.error("Dashboard data loading failed:", err);
+
+		  setError(
+			err instanceof Error
+			  ? err.message
+			  : String(err)
+		  );
+		} finally {
+		  setLoading(false);
+		}
+
   }
 
   useEffect(() => {

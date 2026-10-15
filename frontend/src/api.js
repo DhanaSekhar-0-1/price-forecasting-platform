@@ -1,5 +1,5 @@
 
-const DEFAULT_API_BASE_URL = 'https://price-forecasting-platform.onrender.com';
+const DEFAULT_API_BASE_URL = 'https://price-forecasting-django.onrender.com';
 const configuredApiBaseUrl = import.meta.env.VITE_API_BASE_URL?.trim();
 
 function getApiBaseUrl() {

@@ -250,7 +250,8 @@ Django is not required to run the React + FastAPI application. If you want to te
 - Build command: `npm run build`.
 - Output directory: `dist`.
 - In Vercel Project Settings → Environment Variables, set `VITE_API_BASE_URL` to the deployed Render service base URL, for example `https://your-api-service.onrender.com` (use your actual Render URL, without `/docs` and without a trailing slash).
-- Configure FastAPI CORS to allow the exact Vercel site origin, such as `https://your-project.vercel.app` (use the real URL assigned to your project).
+- The primary production path is Vercel → FastAPI. Do not set this variable to the optional Django gateway.
+- FastAPI allows the stable project alias `https://price-forecasting-platform.vercel.app` and narrowly scoped preview hosts for this Vercel project. If Vercel assigns a different project alias, add that exact origin to `CORS_ALLOWED_ORIGINS` on Render as a comma-separated value.
 - Redeploy after changing environment variables.
 
 ## Django's Role
@@ -273,4 +274,3 @@ Django is optional in the current primary deployment architecture. It can be ext
 ## Assignment Context
 
 The internship task asks candidates to forecast average monthly prices for the next 12 months and address data cleaning, model choice, evaluation, business response, measuring effectiveness, Django deployment, Django/FastAPI integration, frontend integration, and production monitoring. Keep the Jupyter Notebook and updated resume as separate submission deliverables if required by the employer.
-

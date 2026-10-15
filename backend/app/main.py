@@ -1,3 +1,5 @@
+import os
+
 from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
@@ -5,21 +7,24 @@ from backend.app.schemas import ForecastRequest
 from backend.app.services import ForecastService
 
 app = FastAPI(title="Way2Agribusiness Price Forecast API", version="1.0.0", description="12-month monthly-price forecasting API")
-# Permit the local Vite development server; restrict origins to your domain in production.
+
+configured_origins = [
+    origin.strip().rstrip("/")
+    for origin in os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
+    if origin.strip()
+]
+allowed_origins = list(dict.fromkeys([
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "https://price-forecasting-platform.vercel.app",
+    *configured_origins,
+]))
 
 app.add_middleware(
     CORSMiddleware,
-    # Exact local origins for development and the stable Vercel project domain.
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "https://price-forecasting-platform.vercel.app",
-        "https://price-forecasting-platform-l50nsnn8b-dhana-0-1-projects.vercel.app/",
-        "https://price-forecasting-platform-dt8plhfw1-dhana-0-1-projects.vercel.app/",
-    ],
-    # Match this Vercel project’s deployment URLs (production aliases, Git branches,
-    # and preview deployment IDs) without allowing unrelated Vercel projects.
-    allow_origin_regex=r"^https://price-forecasting-platform(?:-[a-z0-9-]+)?-dhana-0-1-projects\\\\.vercel\\\\.app$",
+    allow_origins=allowed_origins,
+    # Only this project's Vercel preview/deployment hostnames are matched.
+    allow_origin_regex=r"^https://price-forecasting-platform(?:-[a-z0-9-]+)?-dhana-0-1-projects\.vercel\.app$",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

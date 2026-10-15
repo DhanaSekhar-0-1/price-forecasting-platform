@@ -23,3 +23,30 @@ def test_metrics_available():
     data = client.get("/api/v1/metrics").json()
     assert data["model"] == "naive"
     assert "test_metrics" in data
+
+def test_production_origin_is_allowed():
+    response = client.get(
+        "/api/v1/metrics",
+        headers={"Origin": "https://price-forecasting-platform.vercel.app"},
+    )
+    assert response.status_code == 200
+    assert response.headers["access-control-allow-origin"] == "https://price-forecasting-platform.vercel.app"
+    assert response.headers["access-control-allow-credentials"] == "true"
+
+def test_project_preview_origin_is_allowed():
+    response = client.get(
+        "/api/v1/metrics",
+        headers={"Origin": "https://price-forecasting-platform-git-main-dhana-0-1-projects.vercel.app"},
+    )
+    assert response.status_code == 200
+    assert response.headers["access-control-allow-origin"].startswith(
+        "https://price-forecasting-platform-git-main"
+    )
+
+def test_unrelated_origin_is_not_allowed():
+    response = client.get(
+        "/api/v1/metrics",
+        headers={"Origin": "https://example.vercel.app"},
+    )
+    assert response.status_code == 200
+    assert "access-control-allow-origin" not in response.headers

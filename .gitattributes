@@ -1,0 +1,10 @@
+
+# Use LF for source code and documentation
+* text=auto eol=lf
+
+# Preserve notebook files as text with LF line endings
+*.ipynb text eol=lf
+
+# Keep Windows scripts compatible with Windows
+*.bat text eol=crlf
+*.cmd text eol=crlf

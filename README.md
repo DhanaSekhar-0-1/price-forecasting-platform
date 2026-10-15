@@ -4,10 +4,11 @@ A web application for exploring historical monthly prices and viewing a 12-month
 
 ## Live Demo
 
-- **React web application (Vercel):** `ADD_YOUR_VERCEL_URL_HERE`
-- **FastAPI backend (Render):** `ADD_YOUR_RENDER_API_URL_HERE`
-- **FastAPI interactive API docs:** `ADD_YOUR_RENDER_API_URL_HERE/docs`
-- **GitHub repository:** `ADD_YOUR_GITHUB_REPOSITORY_URL_HERE`
+- **React web application (Vercel):** https://price-forecasting-platform-git-main-dhana-0-1-projects.vercel.app
+- **FastAPI backend (Render):** https://price-forecasting-platform.onrender.com
+- **Django backend (Render):** https://price-forecasting-django.onrender.com
+- **FastAPI interactive API docs:** https://price-forecasting-platform.onrender.com/docs
+- **GitHub repository:** https://github.com/DhanaSekhar-0-1/price-forecasting-platform
 
 > These are placeholders, not live URLs. After deployment, replace them with the actual URLs shown by Vercel, Render, and GitHub. Do not invent a Vercel URL in advance: Vercel assigns the deployment URL when the project is deployed.
 

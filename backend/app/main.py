@@ -9,15 +9,20 @@ app = FastAPI(title="Way2Agribusiness Price Forecast API", version="1.0.0", desc
 
 app.add_middleware(
     CORSMiddleware,
+    # Exact local origins for development and the stable Vercel project domain.
     allow_origins=[
         "http://localhost:5173",
         "http://127.0.0.1:5173",
-        "https://price-forecasting-platform-l50nsnn8b-dhana-0-1-projects.vercel.app",
-        "https://price-forecasting-platform-a2n3owge-dhana-0-1-projects.vercel.app",
+        "https://price-forecasting-platform.vercel.app",
+        "https://price-forecasting-platform-l50nsnn8b-dhana-0-1-projects.vercel.app/",
+        "https://price-forecasting-platform-dt8plhfw1-dhana-0-1-projects.vercel.app/",
     ],
+    # Match this Vercel project’s deployment URLs (production aliases, Git branches,
+    # and preview deployment IDs) without allowing unrelated Vercel projects.
+    allow_origin_regex=r"^https://price-forecasting-platform(?:-[a-z0-9-]+)?-dhana-0-1-projects\\\\.vercel\\\\.app$",
     allow_credentials=True,
-    allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["Content-Type", "Authorization"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 service = ForecastService()

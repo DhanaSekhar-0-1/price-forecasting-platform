@@ -10,9 +10,6 @@ function getApiBaseUrl() {
     if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password) {
       throw new Error('VITE_API_BASE_URL must be an HTTP(S) URL without credentials');
     }
-    if (url.hostname === 'price-forecasting-django.onrender.com') {
-      throw new Error('The frontend must call FastAPI directly, not the optional Django gateway');
-    }
     return url.toString().replace(/\/$/, '');
   } catch (error) {
     console.warn('Invalid VITE_API_BASE_URL; using the production FastAPI URL.', error);

@@ -251,13 +251,13 @@ Django is not required to run the React + FastAPI application. If you want to te
 - Build command: `npm run build`.
 - Output directory: `dist`.
 - In Vercel Project Settings → Environment Variables, set `VITE_API_BASE_URL` to the deployed Render service base URL, for example `https://your-api-service.onrender.com` (use your actual Render URL, without `/docs` and without a trailing slash).
-- The primary production path is Vercel → FastAPI. Do not set this variable to the optional Django gateway.
-- FastAPI allows the stable project alias `https://price-forecasting-platform.vercel.app` and narrowly scoped preview hosts for this Vercel project. If Vercel assigns a different project alias, add that exact origin to `CORS_ALLOWED_ORIGINS` on Render as a comma-separated value.
+- The direct production path is Vercel → FastAPI. The optional Django gateway is also supported when `VITE_API_BASE_URL` is set to `https://price-forecasting-django.onrender.com`; Django proxies the same `/api/v1/history`, `/api/v1/forecast`, and `/api/v1/metrics` routes to FastAPI.
+- FastAPI and Django allow the stable project alias `https://price-forecasting-platform.vercel.app` and narrowly scoped preview hosts for this Vercel project. If Vercel assigns a different project alias, add that exact origin to the service's `CORS_ALLOWED_ORIGINS` setting as a comma-separated value.
 - Redeploy after changing environment variables.
 
 ## Django's Role
 
-Django is optional in the current primary deployment architecture. It can be extended to manage user accounts, permissions, administrative workflows, approval processes and audit records. If used as a gateway, React must be configured to call Django, and Django must forward appropriate requests to FastAPI. These capabilities should only be claimed as implemented after they are built and tested.
+Django is an optional gateway. When used, React can call Django using `VITE_API_BASE_URL=https://price-forecasting-django.onrender.com`; Django forwards the dashboard's three GET routes to FastAPI and returns the upstream status and JSON payload. It can later be extended to manage user accounts, permissions, administrative workflows, approval processes and audit records.
 
 ## Testing Checklist
 
